@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Beasiswa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #000;
+        }
+        .container {
+            margin: 20px;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #009688;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .chart-container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        canvas {
+            width: 100%;
+            max-width: 600px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Data Beasiswa</h1>
+        </div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="lowongan.html">Lowongan</a>
+            <a href="beasiswa.html">Beasiswa</a>
+            <a href="lomba.html">Lomba</a>
+
+        </div>
+    </header>
+    <div class="container">
+        <h2>Data Beasiswa</h2>
+        <p>Isikan data diri Anda pada kolom yang sudah disediakan!</p>
+        <div class="form-group">
+            <label for="instansi-pembuat">Nama Beasiswa</label>
+            <input type="text" id="instansi-pembuat">
+        </div>
+        <div class="form-group">
+            <label for="jenis-beasiswa">Jenis Beasiswa</label>
+            <select id="jenis-beasiswa">
+                <option value="Fully Funded">Fully Funded</option>
+                <option value="Bantuan Dana">Bantuan Dana</option>
+                <option value="Student Exchange">Student Exchange</option>
+            </select>
+        <div class="form-group">
+            <label for="tanggal">Tanggal Ditetapkan</label>
+            <input type="date" id="tanggal">
+        </div>
+        <div class="form-group">
+            <button onclick="simpanData()">Simpan Data</button>
+        </div>
+        <div class="chart-container">
+            <h3>Statistik per-Tahun</h3>
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Info-in. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        async function simpanData() {
+            const namabeasiswa = document.getElementById('jenis-lomba').value;
+            const jenisbeasiswa = document.getElementById('instansi-pembuat').value;
+            const tanggal = document.getElementById('tanggal').value;
+            
+            const response = await fetch('/save_scholarship_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    namabeasiswa,
+                    jenisbeasiswa,
+                    tanggal
+                })
+            });
+            
+            if (response.ok) {
+                alert('Data berhasil disimpan');
+                loadChart();
+            } else {
+                alert('Gagal menyimpan data');
+            }
+        }
+
+    //     async function loadChart() {
+    //         const response = await fetch('/get_competition_stats');
+    //         const data = await response.json();
+
+    //         const ctx = document.getElementById('chart').getContext('2d');
+    //         new Chart(ctx, {
+    //             type: 'bar',
+    //             data: {
+    //                 labels: data.years,
+    //                 datasets: [
+    //                     {
+    //                         label: 'Lomba 1',
+    //                         data: data.lomba1,
+    //                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    //                         borderColor: 'rgba(75, 192, 192, 1)',
+    //                         borderWidth: 1
+    //                     },
+    //                     {
+    //                         label: 'Lomba 2',
+    //                         data: data.lomba2,
+    //                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
+    //                         borderColor: 'rgba(153, 102, 255, 1)',
+    //                         borderWidth: 1
+    //                     },
+    //                     {
+    //                         label: 'Lomba 3',
+    //                         data: data.lomba3,
+    //                         backgroundColor: 'rgba(255, 159, 64, 0.2)',
+    //                         borderColor: 'rgba(255, 159, 64, 1)',
+    //                         borderWidth: 1
+    //                     }
+    //                 ]
+    //             },
+    //             options: {
+    //                 scales: {
+    //                     y: {
+    //                         beginAtZero: true
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     }
+
+    //     document.addEventListener('DOMContentLoaded', loadChart);
+    // </script>
+</body>
+</html>

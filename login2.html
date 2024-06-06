@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color:#fff;
+        }
+        .login-box {
+            background-color:#ccc;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+        .login-box h2 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #009688;
+            color:#fff;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .form-group a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #009688;
+        }
+    </style>
+</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk</title>
+    <style>
+        /* Your existing CSS styles */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Masuk</h2>
+            <div class="form-group">
+                <label for="username">Nama Pengguna</label>
+                <input type="text" id="username" placeholder="Masukkan nama pengguna">
+            </div>
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" placeholder="Masukkan NIM sebagai password">
+            </div>
+            <div class="form-group">
+                <button onclick="login()">Masuk</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validate password starts with "i03"
+            if (!password.startsWith('i03')) {
+                alert('Password must start with "i03"');
+                return;
+            }
+
+            const response = await fetch('connect.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Login successful!');
+                window.location.href = 'index.html';
+            } else {
+                alert(result.message || 'Login failed');
+            }
+        }
+    </script>
+</body>
+</html>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Masuk</h2>
+            <div class="form-group">
+                <label for="username">Nama Pengguna</label>
+                <input type="text" id="username" placeholder="Masukkan nama pengguna">
+            </div>
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" placeholder="Masukkan NIM sebagai password">
+            </div>
+            <div class="form-group">
+                <button onclick="login()">Masuk</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            async function login() {
+    
+            // Validate password starts with "i03"
+            if (!password.startsWith('i03')) {
+                alert('Password must start with "i03"');
+                return;
+            }
+    // Rest of your existing login logic...
+            }
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+        if (result.success) {
+            window.location.href = 'index.html';
+            alert('Login successful!'); // Display a notification
+        } else {
+            alert('Login failed');
+        }
+
+        }
+    </script>
+</body>
+</html>
